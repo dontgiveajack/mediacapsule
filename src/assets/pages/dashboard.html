@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <meta content='width=device-width' name='viewport'>
+    <title>Media Capsule</title>
+
+<link rel="stylesheet" media="all" href="application.css" data-turbolinks-track="reload" />
+<script src="application.js" data-turbolinks-track="reload"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+</head>
+
+<body id='page-top'>
+    <nav class='navbar navbar-expand navbar-light bg-light static-top' id='main-nav'>
+        <a class='navbar-brand mr-1' href='/'>MediaCapsule</a>
+        <button class='btn btn-link btn-sm text-dark order-1 order-sm-0' href='#' id='sidebarToggle'>
+            <i class='fas fa-bars'></i>
+        </button>
+        <!-- Search -->
+        <form class='ml-auto' id='search-box'>
+            <span>
+<input aria-label='Search' class='form-control' placeholder='Search' type='search'>
+</span>
+        </form>
+        <!-- Navbar -->
+        <ul class='navbar-nav'>
+            <li class='nav-item dropdown no-arrow mx-1'>
+                <a class='nav-link'>
+                    <i class='fas fa-spinner text-primary fa-fw fa-spin'></i>
+                    <span class='badge badge-sup badge-primary'>1</span>
+                </a>
+            </li>
+            <li class='nav-item dropdown no-arrow mx-1'>
+                <a class='nav-link'>
+                    <i class='fas fa-bell fa-fw'></i>
+                    <span class='badge badge-sup badge-primary'>9+</span>
+                </a>
+            </li>
+            <li class='nav-item dropdown no-arrow'>
+                <a aria-expanded='false' aria-haspopup='true' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' id='userDropdown' role='button'>
+                    <i class='fas fa-user-circle fa-fw'></i>
+                </a>
+                <div aria-labelledby='userDropdown' class='dropdown-menu dropdown-menu-right'>
+                    <a class='dropdown-item' href='/settings'>Settings</a>
+                    <a class='dropdown-item' href='#'>Activity Log</a>
+                    <div class='dropdown-divider'></div>
+                    <a class='dropdown-item' data-target='#logoutModal' data-toggle='modal' href='/logout'>Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div id='wrapper'>
+        <!-- Sidebar -->
+        <ul class='sidebar navbar-nav'>
+            <li class="nav-item active"><a class="nav-link " aria-current="page" href="/"><i class='fas fa-fw fa-tachometer-alt'></i>
+<span>Dashboard</span>
+</a></li>
+            <li class='nav-item dropdown'>
+                <a aria-expanded='false' aria-haspopup='true' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' id='pagesDropdown' role='button'>
+                    <i class='fas fa-fw fa-folder'></i>
+                    <span>Catalogue</span>
+                </a>
+                <div aria-labelledby='pagesDropdown' class='dropdown-menu'>
+                    <a class='dropdown-item' href='/catalogue'>
+                        <i class='fas fa-user fa-fw'></i> Personal Folders
+                    </a>
+                    <a class='dropdown-item' href='/in_development'>
+                        <i class='fas fa-share fa-fw'></i> Shared with Me
+                    </a>
+                    <a class='dropdown-item' href='/in_development'>
+                        <i class='fas fa-share-alt fa-fw'></i> Shared with Others
+                    </a>
+                    <a class='dropdown-item' href='/catalogue/favourites'>
+                        <i class='fas fa-star fa-fw'></i> Favorites
+                    </a>
+                    <div class='dropdown-divider'></div>
+                    <a class='dropdown-item' href='/in_development'>
+                        <i class='fas fa-inbox fa-fw'></i> Inbox
+                    </a>
+                </div>
+            </li>
+            <li class='nav-item'>
+                <a class='nav-link' href='/screening_room'>
+                    <i class='fas fa-fw fa-film'></i>
+                    <span>Screening Room</span>
+                </a>
+            </li>
+            <li class='nav-item'>
+                <a class='nav-link' href='/in_development'>
+                    <i class='fas fa-fw fa-user-friends'></i>
+                    <span>People</span>
+                </a>
+            </li>
+            <li class='nav-item dropdown'>
+                <a aria-expanded='false' aria-haspopup='true' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' id='InboxDropdown' role='button'>
+                    <i class='fas fa-fw fa-envelope'></i>
+                    <span>Messages</span>
+                </a>
+                <div aria-labelledby='InboxDropdown' class='dropdown-menu'>
+                    <a class='dropdown-item' href='/in_development'>Action</a>
+                    <a class='dropdown-item' href='/in_development'>Another action</a>
+                    <div class='dropdown-divider'></div>
+                    <a class='dropdown-item' href='/in_development'>Something else here</a>
+                </div>
+            </li>
+            <li class='nav-item'>
+                <a class='nav-link' href='/in_development'>
+                    <i class='fas fa-fw fa-hdd'></i>
+                    <span>CapsulePOD</span>
+                </a>
+            </li>
+        </ul>
+
+        <div id='content-wrapper'>
+            <div id='flash'>
+
+            </div>
+            <div class='container-fluid'>
+                <!-- Breadcrumbs -->
+                <div class='welcome'>
+                    <nav aria-label='breadcrumb'>
+                        <ol class='breadcrumb'>
+                            <li class='breadcrumb-item'>Dashboard</li>
+                            <li class='breadcrumb-item active'>Welcome back, Sam</li>
+                        </ol>
+                    </nav>
+                </div>
+                <!-- Icon Cards -->
+                <div class='row pt-5' id='panels'>
+                    <div class='col-lg-6 mb-3'>
+                        <div class='card o-hidden h-100'>
+                            <div class='card-header'>
+                                Current Usage
+                            </div>
+                            <div class='card-body'>
+                                <div class='row'>
+                                    <div class='col-sm-6'>
+                                        Online Storage 0 Bytes / 100GB
+                                        <div height='100' id='onlineStorage' width='100%'>
+                                            <div id="chart-1" style="height: 300px; width: 100%; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;">Loading...</div>
+                                            <script type="text/javascript">
+                                                new Chartkick.PieChart("chart-1", [
+                                                    ["Available", 100.0],
+                                                    ["Used", 0.0]
+                                                ], {
+                                                    "donut": true,
+                                                    "library": {
+                                                        "backgroundColor": ["#007bff", "#ececec"]
+                                                    }
+                                                });
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-6'>
+                                        Archive Storage 0TB/ 30TB
+                                        <div height='100' id='archiveStorage' width='100%'>
+                                            <div id="chart-2" style="height: 300px; width: 100%; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;">Loading...</div>
+                                            <script type="text/javascript">
+                                                new Chartkick.PieChart("chart-2", [
+                                                    ["Available", 100],
+                                                    ["Used", 0]
+                                                ], {
+                                                    "donut": true,
+                                                    "library": {
+                                                        "backgroundColor": ["#dc3545", "#ececec"]
+                                                    }
+                                                });
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-lg-6 mb-3'>
+                        <div class='card o-hidden h-100'>
+                            <div class='card-header'>
+                                Shortcuts
+                            </div>
+                            <div class='card-body' id='shortcuts'>
+                                <div class='row'>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/in_development'>
+                                            <i class='fas fa-share fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Share Files
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/in_development'>
+                                            <i class='fas fa-hdd fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>CapsulePOD
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/in_development'>
+                                            <i class='fas fa-user-plus fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Create New User
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/settings'>
+                                            <i class='fas fa-cogs fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Account Settings
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/catalogue'>
+                                            <i class='fas fa-user fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Personal Folders
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/in_development'>
+                                            <i class='fas fa-users fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Shared FOlders
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/catalogue/favourites'>
+                                            <i class='fas fa-star fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Favourites
+                                    </div>
+                                    <div class='col-6 col-md-4 col-lg-3 text-center mb-3'>
+                                        <a class='btn btn-outline-dark btn-circle' href='/in_development'>
+                                            <i class='fas fa-inbox fa-fw 2x mb-2'></i>
+                                        </a>
+                                        <br>Inbox
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-lg-6 mb-3'>
+                        <div class='card o-hidden h-100'>
+                            <div class='card-header'>
+                                <i class='fas fa-table'></i> Recent Activity
+                            </div>
+                            <div class='card-body'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-lg-6 mb-3'>
+                        <div class='card o-hidden h-100'>
+                            <div class='card-header'>
+                                Tutorials
+                            </div>
+                            <div class='card-body'></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+
+            <!-- Sticky Footer -->
+            <footer class='sticky-footer'>
+                <div class='container my-auto'>
+                    <div class='copyright text-center my-auto'>
+                        <span>Copyright © MediaCapsule 2018</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <a class='scroll-to-top rounded' href='#page-top'>
+        <i class='fas fa-angle-up'></i>
+    </a>
+
+
+    <!-- Logout Modal -->
+    <div aria-hidden='true' aria-labelledby='exampleModalLabel' class='modal fade' id='logoutModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='exampleModalLabel'>Ready to Leave?</h5>
+                    <button aria-label='Close' class='close' data-dismiss='modal' type='button'>
+                        <span aria-hidden='true'>×</span>
+                    </button>
+                </div>
+                <div class='modal-body'>Select "Logout" below if you are ready to end your current session.</div>
+                <div class='modal-footer'>
+                    <button class='btn btn-secondary' data-dismiss='modal' type='button'>Cancel</button>
+                    <a class='btn btn-primary' href='/logout'>Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

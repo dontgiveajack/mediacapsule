@@ -1,0 +1,139 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+  <div class="list-group">
+    <a routerLink="/" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-tachometer"></i>&nbsp;
+      <span>Dashboard</span>
+    </a>
+    <div class="nested-menu" *ngIf="!isAdminUser">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+        <i class="fa fa-fw fa-folder"></i>&nbsp;
+        <span>Catalogue&nbsp;<i class="fa fa-caret-down"></i></span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+        <ul class="submenu">
+          <li>
+            <a routerLink="/catalogue" [routerLinkActive]="['router-link-active']">
+              <i class="fa fa-fw fa-user"></i>&nbsp;
+              <span>Personal Folders</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="fa fa-fw fa-share"></i>&nbsp;
+              <span>Shared with Me</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="fa fa-fw fa-share-alt"></i>&nbsp;
+              <span>Shared with Others</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/catalogue/favorite" [routerLinkActive]="['router-link-active']">
+              <i class="fa fa-fw fa-star"></i>&nbsp;
+              <span>Favorites</span>
+            </a>
+          </li>
+          <div class="dropdown-divider"></div>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="fa fa-fw fa-inbox"></i>&nbsp;
+              <span>Inbox</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <a *ngIf="!isAdminUser" routerLink="/screening-room" [routerLinkActive]="['router-link-active']"
+      class="list-group-item">
+      <i class="fa fa-fw fa-film"></i>&nbsp;
+      <span>Screening Room</span>
+    </a>
+    <a *ngIf="!isAdminUser" href="#" class="list-group-item">
+      <i class="fa fa-fw fa-users"></i>&nbsp;
+      <span>People</span>
+    </a>
+    <a *ngIf="!isAdminUser" href="#" class="list-group-item">
+      <i class="fa fa-fw fa-envelope"></i>&nbsp;
+      <span>Messages</span>
+    </a>
+    <a *ngIf="!isAdminUser" href="#" class="list-group-item">
+      <i class="fa fa-fw fa-hdd"></i>&nbsp;
+      <span>CapsulePOD</span>
+    </a>
+
+
+    <div *ngIf="isAdminUser" class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('sapages')">
+        <i class="fa fa-fw fa-folder"></i>&nbsp;
+        <span>SUPER ADMIN&nbsp;<i class="fa fa-caret-down"></i></span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'sapages'">
+        <ul class="submenu">
+          <li>
+            <a routerLink="/sa/domains">
+              <i class="fa fa-fw fa-user"></i>&nbsp;
+              <span>Clients</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/sa/domains">
+              <i class="fa fa-fw fa-user"></i>&nbsp;
+              <span>People</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/sa/service-notice">
+              <i class="fa fa-fw fa-user"></i>&nbsp;
+              <span>Status</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/sa/service-availability">
+              <i class="fa fa-fw fa-user"></i>&nbsp;
+              <span>Service Availability</span>
+            </a>
+          </li>
+          <div class="dropdown-divider"></div>
+        </ul>
+      </li>
+    </div>
+
+    <div class="header-fields">
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('profile')">
+          <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
+        </a>
+        <li class="nested" [class.expand]="showMenu === 'profile'">
+          <ul class="submenu">
+            <li>
+              <a href="#">
+                <span><i class="fa fa-fw fa-user"></i> Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span><i class="fa fa-fw fa-envelope"></i> Inbox</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span><i class="fa fa-fw fa-gear"></i> Settings</span>
+              </a>
+            </li>
+            <li>
+              <a (click)="logout()">
+                <span><i class="fa fa-fw fa-power-off"></i> Log Out</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+    <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+    <span>'Collapse Sidebar'</span>
+  </div>
+</nav>

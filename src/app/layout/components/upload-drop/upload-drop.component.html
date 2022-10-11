@@ -1,0 +1,23 @@
+<p-toast [style]="{marginTop: '50px'}" position="top-right"></p-toast>
+<div>
+  <app-upload-component *ngFor="let file of uploadFiles" [UploadModel]="file" (FileUploaded)="onFileUploaded($event)">
+  </app-upload-component>
+</div>
+
+<ngx-file-drop (onFileDrop)="fileDrop($event)">
+  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+    <div class='w-100' (click)="openFileSelector()">
+      <form id="upload-box" enctype="multipart/form-data" action="/media_items" accept-charset="UTF-8" method="post">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <label class="asdndzone" id="asdndz-tenant_media_item_file" data-dnd-input-id="tenant_media_item_file">
+          <i class="fa fa-sign-in-alt fa-rotate-90 fa-5x"></i>
+          <h3 class="mt-3">
+            <span class="text-primary">Choose a File</span> or drag it here
+          </h3>
+          <p class="mt-5">NOTE: For Files larger than 200MB, you should use our dedicated file <a href="#">upload
+              agent</a></p>
+        </label>
+      </form>
+    </div>
+  </ng-template>
+</ngx-file-drop>

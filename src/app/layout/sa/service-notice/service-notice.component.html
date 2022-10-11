@@ -1,0 +1,87 @@
+<p-toast [style]="{marginTop: '50px'}" position="top-right"></p-toast>
+<p-table [value]="notices">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Date Created</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>User</th>
+      <th>Body</th>
+      <th>Acknowledgements</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-notice>
+    <tr *ngIf="!notice.isDeleted">
+      <td>{{ notice.dateCreated | date: 'mediumDate' }}</td>
+      <td>{{ notice.startDate | date: 'mediumDate' }}</td>
+      <td>{{ notice.endDate | date :'mediumDate' }}</td>
+      <td>{{ notice.userId }}</td>
+      <td style="text-overflow: ellipsis">{{ notice.notice }}</td>
+      <td>{{ notice.serviceNoticeAcknowledgements?.length || 0 }}</td>
+      <td><i *ngIf="!notice.isSystemNote && !notice.isDeleted" class="fas fa-trash" style="cursor: pointer"
+          (click)="deleteNote(notice)"></i></td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-paginator [rows]="pageSize" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+
+
+<p-panel>
+  <p-header>
+    Global Notice
+  </p-header>
+  <div class="form-group form-row">
+    <input type="text" [(ngModel)]="globalNotice" class="form-control"><br />
+  </div>
+  <div class="form-group form-row text-center">
+    <p-button label="Clear Global Notice" (click)="expireGlobalNotice()" styleClass="ui-button-warning">
+    </p-button>&nbsp;&nbsp;
+    <p-button label="Update Global Notice" (click)="updateGlobalNotice()" styleClass="ui-button-success">
+    </p-button>
+  </div>
+</p-panel>
+
+<p-panel>
+  <p-header>
+    Add Notice
+  </p-header>
+  <div class="container-flud" style="min-height: 600px">
+    <div class="form-group form-row">
+      <label>Notice</label>
+      <input type="text" class="form-control" [(ngModel)]="noteText">
+    </div>
+    <div class="form-group form-row">
+      <div class="col-md-3">
+        <label>Domain</label>
+      </div>
+      <div class="col">
+        <p-dropdown [options]="domains" [(ngModel)]="currentDomain" (onChange)="domainChanged($event)" filter="true">
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col-md-3">
+        <label>User</label>
+      </div>
+      <div class="col">
+        <p-dropdown [options]="users" [(ngModel)]="currentUser" filter="true">
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col-md-3">
+        <label>Date Range</label>
+      </div>
+      <div class="col">
+        <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" showButtonBar="true">
+        </p-calendar>
+      </div>
+    </div>
+
+    <div class="form-group form-row">
+      <p-button label="Create Note" (click)="createNote()"></p-button>
+    </div>
+  </div>
+</p-panel>

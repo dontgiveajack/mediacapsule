@@ -1,0 +1,15 @@
+<table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+  <tbody>
+    <tr>
+      <th>
+        {{myMetadata?.name || ''}}
+      </th>
+      <td>
+        {{myMetadata?.value || ''}}
+      </td>
+    </tr>
+  </tbody>
+</table>    
+<app-asset-metadata-display [metadata]="sg" *ngFor="let sg of myMetadata?.subGroup || []"></app-asset-metadata-display>
+
+

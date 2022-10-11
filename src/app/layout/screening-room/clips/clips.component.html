@@ -1,0 +1,48 @@
+<app-page-header></app-page-header>
+<div class='container-fluid'>
+	<div class="row no-gutters panels">
+	    <div class="col-12">
+	      	<div id='folder-btn' class="d-inline-block" ngbDropdown>
+		        <a class='btn btn-light'>
+		          <i class='fa fa-plus-circle'></i>
+		          <span class='text-dark'>
+		            Create Screening Room
+		          </span>
+		        </a>
+	    	</div>
+		</div>
+	<ngx-datatable class='bootstrap table-hover table-striped expandable w-100' id='tree' [rows]="rows"
+        columnMode="flex" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+        rowHeight="auto" [scrollbarH]="true">
+        <!-- Row Detail Template -->
+        <ngx-datatable-column [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+          [headerCheckboxable]="true" [checkboxable]="true" [width]="33">
+        </ngx-datatable-column>
+        <ngx-datatable-column [flexGrow]="1" [minWidth]="168" name="Name" prop="name">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span>
+              {{value}}
+            </span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Date Created" [flexGrow]="1" [canAutoResize]="false" [minWidth]="180">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{row.date}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Activity" [flexGrow]="1" [canAutoResize]="true" [minWidth]="100">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Last Active" [flexGrow]="1" [canAutoResize]="true" [minWidth]="100">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+        </ngx-datatable-column>        
+    </ngx-datatable>
+</div>
+</div>

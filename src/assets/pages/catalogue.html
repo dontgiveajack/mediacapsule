@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='width=device-width' name='viewport'>
+<title>Media Capsule</title>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Ra+Nqe/Ksq88t8CzSS06UXozDEy7ossVlTmoL8adewT4X+g7asaXIcs8rtxkHo/MCBStsDZeYVqK13l4mdSgEw==" />
+
+<link rel="stylesheet" media="all" href="application.css" data-turbolinks-track="reload" />
+<script src="application.js" data-turbolinks-track="reload"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+
+</head>
+<body id='page-top'>
+<nav class='navbar navbar-expand navbar-light bg-light static-top' id='main-nav'>
+<a class='navbar-brand mr-1' href='/'>MediaCapsule</a>
+<button class='btn btn-link btn-sm text-dark order-1 order-sm-0' href='#' id='sidebarToggle'>
+<i class='fas fa-bars'></i>
+</button>
+<!-- Search -->
+<form class='ml-auto' id='search-box'>
+<span>
+<input aria-label='Search' class='form-control' placeholder='Search' type='search'>
+</span>
+</form>
+<!-- Navbar -->
+<ul class='navbar-nav'>
+<li class='nav-item dropdown no-arrow mx-1'>
+<a class='nav-link'>
+<i class='fas fa-spinner text-primary fa-fw fa-spin'></i>
+<span class='badge badge-sup badge-primary'>1</span>
+</a>
+</li>
+<li class='nav-item dropdown no-arrow mx-1'>
+<a class='nav-link'>
+<i class='fas fa-bell fa-fw'></i>
+<span class='badge badge-sup badge-primary'>9+</span>
+</a>
+</li>
+<li class='nav-item dropdown no-arrow'>
+<a aria-expanded='false' aria-haspopup='true' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' id='userDropdown' role='button'>
+<i class='fas fa-user-circle fa-fw'></i>
+</a>
+<div aria-labelledby='userDropdown' class='dropdown-menu dropdown-menu-right'>
+<a class='dropdown-item' href='/settings'>Settings</a>
+<a class='dropdown-item' href='#'>Activity Log</a>
+<div class='dropdown-divider'></div>
+<a class='dropdown-item' data-target='#logoutModal' data-toggle='modal' href='/logout'>Logout</a>
+</div>
+</li>
+</ul>
+</nav>
+
+<div id='wrapper'>
+<!-- Sidebar -->
+<ul class='sidebar navbar-nav'>
+<li class="nav-item"><a class="nav-link " href="/"><i class='fas fa-fw fa-tachometer-alt'></i>
+<span>Dashboard</span>
+</a></li><li class='active dropdown nav-item'>
+<a aria-expanded='false' aria-haspopup='true' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' id='pagesDropdown' role='button'>
+<i class='fas fa-fw fa-folder'></i>
+<span>Catalogue</span>
+</a>
+<div aria-labelledby='pagesDropdown' class='dropdown-menu'>
+<a class='dropdown-item' href='/catalogue'>
+<i class='fas fa-user fa-fw'></i>
+Personal Folders
+</a>
+<a class='dropdown-item' href='/in_development'>
+<i class='fas fa-users fa-fw'></i>
+Shared Folders
+</a>
+<a class='dropdown-item' href='/catalogue/favourites'>
+<i class='fas fa-star fa-fw'></i>
+Favorites
+</a>
+<div class='dropdown-divider'></div>
+<a class='dropdown-item' href='/in_development'>
+<i class='fas fa-inbox fa-fw'></i>
+Inbox
+</a>
+</div>
+</li>
+<li class='nav-item'>
+<a class='nav-link' href='/screening_room'>
+<i class='fas fa-fw fa-film'></i>
+<span>Screening Room</span>
+</a>
+</li>
+<li class='nav-item'>
+<a class='nav-link' href='/in_development'>
+<i class='fas fa-fw fa-user-friends'></i>
+<span>People</span>
+</a>
+</li>
+<li class='nav-item dropdown'>
+<a aria-expanded='false' aria-haspopup='true' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' id='InboxDropdown' role='button'>
+<i class='fas fa-fw fa-envelope'></i>
+<span>Messages</span>
+</a>
+<div aria-labelledby='InboxDropdown' class='dropdown-menu'>
+<a class='dropdown-item' href='/in_development'>Action</a>
+<a class='dropdown-item' href='/in_development'>Another action</a>
+<div class='dropdown-divider'></div>
+<a class='dropdown-item' href='/in_development'>Something else here</a>
+</div>
+</li>
+<li class='nav-item'>
+<a class='nav-link' href='/in_development'>
+<i class='fas fa-fw fa-hdd'></i>
+<span>CapsulePOD</span>
+</a>
+</li>
+</ul>
+
+<div id='content-wrapper'>
+<div id='flash'>
+
+</div>
+<div class='container-fluid'>
+<!-- Breadcrumbs -->
+<div class='welcome'>
+<nav aria-label='breadcrumb'>
+<ol class='breadcrumb'>
+<li class='breadcrumb-item'>
+<a href='/catalogue'>
+Catalogue (Personal Folders)
+</a>
+</li>
+<li aria-current='page' class='breadcrumb-item active'>
+<i class='fas fa-fw fa-folder-open text-dark'></i>
+Personal Folders
+</li>
+</ol>
+</nav>
+</div>
+<div class='row' id='panels'>
+<div id='folder-btn'>
+<a aria-expanded='false' aria-haspopup='true' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
+<i class='fas fa-plus-circle text-primary'></i>
+<span class='text-dark'>
+Folder Actions
+</span>
+</a>
+<div class='dropdown-menu'>
+<a class='dropdown-item mb-1' href='#'>
+<i class='fas fa-fw fa-upload'></i>
+High Speed Upload
+</a>
+<a class="dropdown-item mb-1" data-remote="true" data-method="get" href="/folders/new?parent_id=0"><i class='fas fa-fw fa-folder-plus'></i>
+Create Folder
+</a><a class='dropdown-item mb-1' href='#'>
+<i class='fas fa-fw fa-archive'></i>
+Archive Folder
+</a>
+<a class='dropdown-item mb-1' href='#'>
+<i class='fas fa-fw fa-file-import'></i>
+Restore Folder
+</a>
+<a class='dropdown-item mb-1' href='#'>
+<i class='fas fa-fw fa-envelope'></i>
+Send Folder
+</a>
+<a class='dropdown-item mb-1' href='#'>
+<i class='fas fa-fw fa-sticky-note'></i>
+Create Note
+</a>
+<a class='dropdown-item mb-1' href='#'>
+<i class='fas fa-fw fa-share-square'></i>
+Reqest Files
+</a>
+</div>
+</div>
+<div id='folder-actions'>
+<a class='move' data-remote href='#'>
+<i class='fas fa-fw fa-file-export'></i>
+Move
+</a>
+<a class='email' data-remote href='#'>
+<i class='fas fa-fw fa-envelope'></i>
+Email
+</a>
+<a data-remote href='#'>
+<i class='fas fa-fw fa-archive'></i>
+Archive
+</a>
+<a data-remote href='#'>
+<i class='fas fa-fw fa-trash'></i>
+Delete
+</a>
+<a data-remote href='#'>
+<i class='fas fa-fw fa-film'></i>
+Create Screening Room
+</a>
+</div>
+<div class='ml-auto' id='sort-options'>
+<a>
+<i class='fas fa-fw fa-bars active'></i>
+</a>
+<a>
+<i class='fas fa-fw fa-grip-horizontal'></i>
+</a>
+<a>
+<i class='fas fa-fw fa-columns'></i>
+</a>
+</div>
+<div class='table'>
+<table class='table table-hover table-striped fancytree-fade-expander' data-parent-id='0' id='tree'>
+<colgroup>
+<col width='10px'>
+<col width='10px'>
+<col width='*'>
+<col width='*'>
+<col width='*'>
+<col width='*'>
+<col width='20px'>
+<col width='20px'>
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th class='folder-th sort'>Name</th>
+<th class='sort'>Size</th>
+<th class='sort'>Updated</th>
+<th class='sort'>Added By</th>
+<th>Online</th>
+<th>Archived</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='cell'></td>
+<td class='favourite'></td>
+<td class='folder'></td>
+<td class='cell'></td>
+<td class='cell'></td>
+<td class='cell'></td>
+<td class='text-center text-success'></td>
+<td class='text-center'></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class='w-100' id='notifications'>
+<span class='mr-1'>Send me notification when a file is:</span>
+<div class='form-check form-check-inline'>
+<input class='form-check-input' id='inlineCheckbox1' type='checkbox' value='option1'>
+<label class='form-check-label' for='inlineCheckbox1'>Downloaded from this folder</label>
+</div>
+<div class='form-check form-check-inline'>
+<input class='form-check-input' id='inlineCheckbox2' type='checkbox' value='option2'>
+<label class='form-check-label' for='inlineCheckbox2'>Uploaded to this folder</label>
+</div>
+<p class='mt-3'>
+<a href='/settings#notifications'>More Notification Settings</a>
+</p>
+</div>
+<div class='w-100'>
+<form id="upload-box" enctype="multipart/form-data" action="/media_items" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="jgiND51nQ741KYuaFOisXpJroLm2toL4WskfU1u81tI9DN6qNpUkAU4f9u73HTykKJfpoOEKaRq/oIEf5wvT4g==" /><input type="hidden" name="tenant_media_item[folder_id]" id="tenant_media_item_folder_id" />
+<label class="asdndzone" id="asdndz-tenant_media_item_file" data-dnd-input-id="tenant_media_item_file">
+  <i class="fas fa-sign-in-alt fa-rotate-90 fa-7x"></i>
+  <h3 class="mt-3">
+    <span class="text-primary">Choose a File</span> or drag it here
+  </h3>
+  <p class="mt-5">NOTE: For Files larger than 200MB, you should use our dedicated file <a href="#">upload agent</a></p>
+
+  <div id="asdndz-tenant_media_item_file__icon-container"></div>
+  <input style="display:none;" data-dnd="true" data-dnd-zone-id="asdndz-tenant_media_item_file" data-icon-container-id="asdndz-tenant_media_item_file__icon-container" data-direct-upload-url="http://corbytest.staging.mediacapsule.com/rails/active_storage/direct_uploads" type="file" name="tenant_media_item[file]" id="tenant_media_item_file" />
+
+</label>
+<input type="submit" name="commit" value="Create Media item" id="file-submit-button" class="d-none" data-disable-with="Create Media item" />
+</form></div>
+</div>
+</div>
+<!-- /.container-fluid -->
+
+<!-- Sticky Footer -->
+<footer class='sticky-footer'>
+<div class='container my-auto'>
+<div class='copyright text-center my-auto'>
+<span>Copyright © MediaCapsule 2018</span>
+</div>
+</div>
+</footer>
+
+</div>
+<!-- /.content-wrapper -->
+</div>
+<!-- Scroll to Top Button -->
+<a class='scroll-to-top rounded' href='#page-top'>
+<i class='fas fa-angle-up'></i>
+</a>
+<div aria-hidden='true' aria-labelledby='mediaCapsuleModal' class='modal fade' id='media-capsule-modal' role='dialog' tabindex='-1'>
+<div class='modal-dialog' role='document'>
+<div class='modal-content'>
+<div class='modal-header'>
+<h5 class='modal-title' id='exampleModalLabel'>Modal title</h5>
+<button aria-label='Close' class='close' data-dismiss='modal' type='button'>
+<span aria-hidden='true'>&#215;</span>
+</button>
+</div>
+<div class='modal-body'>
+...
+</div>
+<div class='modal-footer'>
+<button class='btn btn-secondary' data-dismiss='modal' type='button'>Close</button>
+<button class='btn btn-primary' type='button'>Save changes</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Logout Modal -->
+<div aria-hidden='true' aria-labelledby='exampleModalLabel' class='modal fade' id='logoutModal' role='dialog' tabindex='-1'>
+<div class='modal-dialog' role='document'>
+<div class='modal-content'>
+<div class='modal-header'>
+<h5 class='modal-title' id='exampleModalLabel'>Ready to Leave?</h5>
+<button aria-label='Close' class='close' data-dismiss='modal' type='button'>
+<span aria-hidden='true'>×</span>
+</button>
+</div>
+<div class='modal-body'>Select "Logout" below if you are ready to end your current session.</div>
+<div class='modal-footer'>
+<button class='btn btn-secondary' data-dismiss='modal' type='button'>Cancel</button>
+<a class='btn btn-primary' href='/logout'>Logout</a>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

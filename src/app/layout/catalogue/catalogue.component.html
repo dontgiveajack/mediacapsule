@@ -1,0 +1,263 @@
+<app-page-header [breadcrumbItem]="breadcrumbItem"></app-page-header>
+<p-toast [style]="{marginTop: '50px'}" position="top-right"></p-toast>
+<p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<div class='container-fluid'>
+  <div class="row no-gutters panels">
+    <div class="col-12">
+      <div id='folder-btn' class="d-inline-block" ngbDropdown>
+        <a aria-expanded='false' aria-haspopup='true' class='dropdown-toggle' data-toggle='dropdown' role='button'
+          ngbDropdownToggle>
+          <i class='fa fa-plus-circle text-primary'></i>
+          <span class='text-dark'>
+            Folder Actions
+          </span>
+        </a>
+        <div class='dropdown-menu' ngbDropdownMenu>
+          <a class='dropdown-item mb-1' href='#'>
+            <i class='fa fa-fw fa-upload'></i>
+            High Speed Upload
+          </a>
+          <a class="dropdown-item mb-1" (click)="createFolder();">
+            <i class='fa fa-fw fa-folder-plus'></i> Create Folder
+          </a><a class='dropdown-item mb-1' href='#'>
+            <i class='fa fa-fw fa-archive'></i>
+            Archive Folder
+          </a>
+          <a class='dropdown-item mb-1' href='#'>
+            <i class='fa fa-fw fa-file-import'></i>
+            Restore Folder
+          </a>
+          <a class='dropdown-item mb-1' href='#'>
+            <i class='fa fa-fw fa-envelope'></i>
+            Send Folder
+          </a>
+          <a class='dropdown-item mb-1' href='#'>
+            <i class='fa fa-fw fa-sticky-note'></i>
+            Create Note
+          </a>
+          <a class='dropdown-item mb-1' href='#'>
+            <i class='fa fa-fw fa-share-square'></i>
+            Reqest Files
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 align-self-center mr-1" id="up-folder">
+      <button class="btn btn-light btn-block" *ngIf="parentNamespaceId && parentNamespaceId > 1"
+        routerLink="/catalogue/{{parentNamespaceId}}">
+        <i class="fa fa-level-up-alt" aria-hidden="true"></i> Up Folder
+      </button>
+    </div>   
+    <div class="col">
+      <div class="folder-btn btn-group btn-group-toggle" data-toggle="buttons" id='folder-actions'>
+        <label class="btn btn-light" (click)="moveSelectedAssets($event)">
+          <input type="radio" name="options" id="move" autocomplete="off"><i class='fa fa-fw fa-arrows-alt'></i>
+          Move
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="email" autocomplete="off"><i class='fa fa-fw fa-envelope'></i>
+          Email
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="archive" autocomplete="off"><i class='fa fa-fw fa-archive'></i>
+          Archive
+        </label>
+        <label class="btn btn-light" (click)="deleteSelectedAssets($event)">
+          <input type="radio" name="options" id="delete" autocomplete="off"><i class='fa fa-fw fa-trash'></i>
+          Delete
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="screening_room" autocomplete="off"><i class='fa fa-fw fa-film'></i>
+          Create Screening Room
+        </label>
+      </div>
+    </div>
+    <div class="col-2 col-md-2 align-self-center" id='sort-options'>
+      <div>
+        <a>
+          <i class='fa fa-fw fa-bars active'></i>
+        </a>
+        <a>
+          <i class='fa fa-fw fa-th'></i>
+        </a>
+        <a>
+          <i class='fa fa-fw fa-columns'></i>
+        </a>
+      </div>
+    </div> 
+    <p-table class="w-100" [scrollable]="false" [value]="rows" [paginator]="true" [rows]="10" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 40px">
+            <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+          </th>
+          <th style="width: 40px"></th>
+          <th pSortableColumn="name">
+            <p-sortIcon field="name"></p-sortIcon>Name
+          </th>
+          <th pSortableColumn="sizeSortable">
+            <p-sortIcon field="sizeSortable"></p-sortIcon>Size
+          </th>
+          <th pSortableColumn="updated">
+            <p-sortIcon field="updated"></p-sortIcon>Updated
+          </th>
+          <th>Added By</th>
+          <th style="width: 80px; text-align: center;">Online</th>
+          <th style="width: 80px; text-align: center;">Archived</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr pDraggable="dd" pDroppable="dd" (onDragStart)="dragFileStart($event, row)"
+          (onDragEnd)="dragFileEnd($event, row)" (onDrop)="fileDrop($event, row)">
+          <td>
+            <span class="desktop-hidden">Select: </span>
+            <input type="checkbox" [(ngModel)]="row.selected" (change)="refreshSelected()" />
+          </td>
+          <td>
+            <i class="{{row.isFavorite ? 'fas': 'far'}} fa-star" (click)="changeFavorite(row['id'])"></i>
+          </td>
+          <td [routerLink]="'/catalogue/' + (row.isNamespace ? '': 'a/')  + row.id">
+            <i class="fas {{row.icon}}" style="color: #429600"></i>
+            {{row.name}}
+          </td>
+          <td [routerLink]="'/catalogue/' + (row.isNamespace ? '': 'a/')  + row.id">{{row.size}}</td>
+          <td [routerLink]="'/catalogue/' + (row.isNamespace ? '': 'a/')  + row.id">
+            {{row.updated | date : 'MMM dd yyyy h:mm aaa' }}&nbsp;
+          </td>
+          <td>&nbsp;</td>
+          <td style="width: 80px; text-align: center;">
+            <i *ngIf="!row.isNamespace" class="fas fa-circle {{row.isOnline ? 'text-primary' : 'text-grey'}}"></i>&nbsp;
+          </td>
+          <td style="width: 80px; text-align: center;">
+            <i *ngIf="!row.isNamespace"
+              class="fas fa-circle {{row.isArchived ? 'text-primary' : 'text-grey'}}"></i>&nbsp;
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <div *ngIf="false">
+      <ngx-datatable class='bootstrap table-hover table-striped expandable w-100' id='tree' [rows]="rows"
+        columnMode="flex" [selected]="selected" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+        rowHeight="auto" (select)='refreshSelected()' [scrollbarH]="true" [limit]="10" [count]="rows.length"
+        [footerHeight]="50">
+        <!-- Row Detail Template -->
+        <ngx-datatable-row-detail rowHeight="auto" #myDetailRow (toggle)="onDetailToggle($event)">
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+            <div style="padding-left:60px;padding:0.75rem;">
+              <div>Size: {{row.size}}<br />Updated: {{row.updated}}</div>
+            </div>
+          </ng-template>
+        </ngx-datatable-row-detail>
+        <ngx-datatable-column [width]="39" [resizeable]="false" [sortable]="false" [draggable]="false"
+          [canAutoResize]="false">
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <a [class.fa-chevron-right]="!expanded" [class.fa-chevron-down]="expanded" title="Expand/Collapse Row"
+              (click)="toggleExpandRow(row)" class="desktop-hidden fa fa-fw pl-1">
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+          [headerCheckboxable]="true" [checkboxable]="true" [width]="33">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="" prop="isFavorite" [width]="33" [sortable]="false" [canAutoResize]="false"
+          [draggable]="false" [resizeable]="false">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <i *ngIf="!row.isNamespace" class="{{row.isFavorite ? 'fas': 'far'}} fa-star"
+              (click)="changeFavorite(row['id'])"></i>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [flexGrow]="2" [minWidth]="368" name="Name" prop="name">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <i class="fas {{row.icon}}" style="color: #429600"></i>
+            <div style="padding-left: 5px; display: inline-block; cursor: pointer" *ngIf="row.isNamespace"
+              routerLink="/catalogue/{{row.id}}">
+              {{value}}
+            </div>
+            <div style="padding-left: 5px; display: inline-block" *ngIf="!row.isNamespace"
+              routerLink="/catalogue/a/{{row.id}}">
+              {{value}}
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Size" prop="sizeSortable" [flexGrow]="0" [minWidth]="80">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{row.size}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Updated" [flexGrow]="1" [canAutoResize]="false" [minWidth]="180">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{row.updated}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Added By" [flexGrow]="1" [canAutoResize]="true" [minWidth]="100">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{row.addedBy}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Online" [flexGrow]="1" [minWidth]="70">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{row.online}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Archived" [flexGrow]="1" [minWidth]="70">
+          <ng-template let-column="column" let-sort="sortFn" let-value="value" ngx-datatable-header-template>
+            <span (click)="sort()" class="mobile-hidden sort">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{row.archived}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-footer>
+          <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+            <div style="padding: 5px 10px">
+              <div>
+                Total: {{rowCount}} |
+                <!-- Size: {{pageSize}} | -->
+                <!-- Current: {{curPage}} | -->
+                <!-- Offset: {{offset}} | -->
+                Selected: {{selectedCount}}
+              </div>
+            </div>
+
+            <datatable-pager [pagerLeftArrowIcon]="'fa fas fa-angle-left'"
+              [pagerRightArrowIcon]="'fa fas fa-angle-right'" [pagerPreviousIcon]="'fa fas fa-angle-double-left'"
+              [pagerNextIcon]="'fa fas fa-angle-double-right'" [page]="curPage" [size]="pageSize" [count]="rowCount"
+              [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+            </datatable-pager>
+          </ng-template>
+        </ngx-datatable-footer>
+      </ngx-datatable>
+    </div>
+
+    <div class='w-100' id='notifications'>
+      <span class='mr-1'>Send me notification when a file is:</span>
+      <div class='form-check form-check-inline'>
+        <input class='form-check-input' id='inlineCheckbox1' type='checkbox' value='option1'>
+        <label class='form-check-label' for='inlineCheckbox1'>Downloaded from this folder</label>
+      </div>
+      <div class='form-check form-check-inline'>
+        <input class='form-check-input' id='inlineCheckbox2' type='checkbox' value='option2'>
+        <label class='form-check-label' for='inlineCheckbox2'>Uploaded to this folder</label>
+      </div>
+      <p class='mt-3'>
+        <a href='/settings#notifications'>More Notification Settings</a>
+      </p>
+    </div>
+    <app-upload-drop *ngIf="showUpload" [currentPath]="currentNamespace.path" (FileUploaded)="onFileUploaded($event)">
+    </app-upload-drop>
+  </div>
+</div><!-- /.container-fluid -->

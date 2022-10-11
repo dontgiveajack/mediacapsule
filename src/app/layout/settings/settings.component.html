@@ -1,0 +1,340 @@
+<app-page-header></app-page-header>
+<div class='container-fluid'>
+  <div class="row pt-5 px-3" id="panels">
+    <ngb-tabset>
+        <ngb-tab id="nav-general-tab" title="General">
+	        <ng-template ngbTabContent>
+	          <form>
+	            <h2 class="heading">User Settings</h2>
+	            <div class="form-group">
+	              <div class="form-row">
+	                <div class="col-md-6">
+	                  <label for="firstName">First Name</label>
+	                  <input class="form-control" id="firstName" placeholder="First Name" type="text">
+	                </div>
+	                <div class="col-md-6">
+	                  <label for="lastName">Last Name</label>
+	                  <input class="form-control" id="lastName" placeholder="Last Name" type="text">
+	                </div>
+	              </div>
+	            </div>
+	            <div class="form-group">
+	                <div class="form-row">
+		                <div class="col-md-6">
+		                  <label for="CompanyName">Company</label>
+		                  <input class="form-control" id="CompanyName" placeholder="Company" type="text">
+		                </div>
+		                <div class="col-md-6">
+			                <label for="subdomain">Subdomain</label>
+			                <input class="form-control" id="subdomain" placeholder="Subdomain" type="text" readonly>
+		                </div>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	              <label for="email">Email Address (for login and notifications)</label>
+	              <input class="form-control" id="email" placeholder="Email Address" type="email">
+	            </div>
+	            <div class="form-group">
+	              <label for="current_password">Current Password (only needed to change your password)</label>
+	              <input class="form-control" id="current_password" placeholder="Current Password" type="password">
+	            </div>
+	            <div class="form-group">
+	              <div class="form-row">
+	                <div class="col-md-6">
+		              <label for="inputPassword">New Password</label>
+		              <input class="form-control" id="inputPassword" placeholder="New Password" type="password" required="required">
+	                </div>
+	                <div class="col-md-6">
+	                  <label for="confirmPassword">Confirm password</label>
+	                  <input class="form-control" id="confirmPassword" placeholder="Confirm password" required="required" type="password">
+	                </div>
+	              </div>
+	            </div>
+	            <hr class="my-5"/>
+	            <h2 class="heading">Video Settings</h2>
+	            <div class="form-check">
+	              <input class="form-check-input" id="createProxy" type="checkbox">
+	              <label class="form-check-label" for="createProxy">
+	                Create proxy of uploaded videos
+	              </label>
+	            </div>
+	            <div class="form-check">
+	              <input class="form-check-input" id="createThumb" type="checkbox">
+	              <label class="form-check-label" for="createThumb">
+	                Create thumbnail uploaded videos
+	              </label>
+	            </div>
+	            <div class="form-check mb-3">
+	              <input class="form-check-input" id="extractMeta" type="checkbox">
+	              <label class="form-check-label" for="extractMeta">
+	                Extract Meta Data for uploaded videos
+	              </label>
+	            </div>
+	            <a class="btn btn-secondary mb-2 mr-2" href="#">Delete all Thumbnails </a>
+	            <a class="btn btn-secondary mb-2" href="#">Delete all Proxies</a>
+	            <hr class="my-5">
+	            <a class="btn btn-primary btn-lg mb-5" href="#">Confirm Changes</a>
+	          </form>
+	        </ng-template>
+        </ngb-tab>
+        <ngb-tab id="nav-notifications-tab" title="Notifications">
+          <ng-template ngbTabContent>
+            <h2 class="heading">Send me emails when</h2>
+            <div class="form-check">
+              <input class="form-check-input" id="archivesComplete" type="checkbox">
+              <label class="form-check-label" for="archivesComplete">
+                Archives are completed
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="restoresComplete" type="checkbox">
+              <label class="form-check-label" for="restoresComplete">
+                Restores are completed
+              </label>
+            </div>
+            <hr class="my-5">
+            <a class="btn btn-primary btn-lg mb-5" href="#">Confirm Changes</a>
+          </ng-template>
+        </ngb-tab>        
+        <ngb-tab id="nav-customization-tab" title="Customization">
+          <ng-template ngbTabContent>
+            <table class="table table-striped">
+              <thead>
+                <th scope="col" sortable="meta" name="Predefined Meta Data Fields">Predefined Meta Data Fields</th>
+                <th scope="col" name=""></th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#</td>
+                  <td>#</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped">
+              <thead>
+                <th scope="col" sortable="meta" name="Customized Meta Data Fields">Customized Meta Data Fields</th>
+                <th scope="col" name="Add New">
+                  <a href="#">+ Add New</a>
+                </th>
+                <th scope="col" name="Delete">
+                </th>                                    
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#</td>
+                  <td>#</td>
+                  <td>#</td>                 
+                </tr>
+              </tbody>
+            </table>
+            <hr class="my-5">
+            <a class="btn btn-primary btn-lg mb-5" href="#">Confirm Changes</a> 
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="nav-capsule-tab" title="Capsule Pod">
+          <ng-template ngbTabContent>
+            <h2 class="heading">FileCatalyst Integration</h2>
+            <div class="form-group">
+              <label for="userName">FileCatalyst Username</label>
+              <input class="form-control" id="userName" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input class="form-control" id="password" placeholder="Password" type="password">  
+            </div>
+            <hr class="my-5"/>
+            <h2 class="heading">Data Handling  </h2>
+            <p>Select default data handling for income data using the CapsulePOD                </p>
+            <div class="form-check">
+              <input class="form-check-input" id="archive" type="checkbox">
+              <label class="form-check-label" for="archive">
+                Archive
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="onlineStorage" type="checkbox">
+              <label class="form-check-label" for="onlineStorage">
+                Online Storage
+              </label>
+            </div>
+            <p>
+              Incoming Data goes directly to: 
+              <strong>Catalogue/Inbox    </strong>
+            </p>
+            <hr class="my-5"/>
+            <h2 class="heading">Video Settings                  </h2>
+            <div class="form-check">
+              <input class="form-check-input" id="proxy" type="checkbox">
+              <label class="form-check-label" for="proxy">
+                Create proxy of uploaded videos
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="thumbnail" type="checkbox">
+              <label class="form-check-label" for="thumbnail">
+                Create thumbnail of uploaded videos
+              </label>
+            </div>
+            <hr class="my-5"/>
+            <h2 class="heading">Meta Data Mapping</h2>
+            <div class="table-responsive">
+              <table cellspacing="0" class="table" id="metadataDataTable" width="100%">
+                <thead>
+                  <tr>
+                    <th>Input File (XLS, CSV)</th>
+                    <th>MediaCapsule Meta Data Fields</th>
+                    <th class="no-sort"></th>
+                    <th class="no-sort"></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Input File (XLS, CSV)</th>
+                    <th>MediaCapsule Meta Data Fields</th>
+                    <th class="no-sort"></th>
+                    <th class="no-sort"></th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr>
+                    <td>Title</td>
+                    <td>Title</td>
+                    <td>
+                      <a href="#">Edit</a>
+                    </td>
+                    <td>
+                      <a href="#">Delete</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Total Time</td>
+                    <td>Running Time</td>
+                    <td>
+                      <a href="#">Edit</a>
+                    </td>
+                    <td>
+                      <a href="#">Delete</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Company</td>
+                    <td>Company</td>
+                    <td>
+                      <a href="#">Edit</a>
+                    </td>
+                    <td>
+                      <a href="#">Delete              </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr class="my-5">
+            <a class="btn btn-primary btn-lg mb-5" href="#">Confirm Changes</a>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="nav-filecatalyst-tab" title="FileCatalyst">
+          <ng-template ngbTabContent>
+            <h2 class="heading">FileCatalyst Integration</h2>
+            <div class="form-group">
+              <label for="fileCatalystUserName">FileCatalyst Username</label>
+              <input class="form-control" id="fileCatalystUserName" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+              <label for="fileCatalystPassword">Password</label>
+              <input class="form-control" id="fileCatalystPassword" placeholder="Password" type="password">  
+            </div>
+            <hr class="my-5"/>
+            <h2 class="heading">Data Handling  </h2>
+            <p>Select default data handling for income data using the CapsulePOD                </p>
+            <div class="form-check">
+              <input class="form-check-input" id="archive" type="checkbox">
+              <label class="form-check-label" for="archive">
+                Archive
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="onlineStorage" type="checkbox">
+              <label class="form-check-label" for="onlineStorage">
+                Online Storage
+              </label>
+            </div>
+            <p>
+              Incoming Data goes directly to: 
+              <strong>Catalogue/Inbox    </strong>
+            </p>
+            <hr class="my-5"/>
+            <h2 class="heading">Video Settings                  </h2>
+            <div class="form-check">
+              <input class="form-check-input" id="proxy" type="checkbox">
+              <label class="form-check-label" for="proxy">
+                Create proxy of uploaded videos
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="thumbnail" type="checkbox">
+              <label class="form-check-label" for="thumbnail">
+                Create thumbnail of uploaded videos
+              </label>
+            </div>
+            <hr class="my-5"/>
+            <h2 class="heading">Meta Data Mapping</h2>
+            <div class="table-responsive">
+              <table cellspacing="0" class="table" id="dataTable" width="100%">
+                <thead>
+                  <tr>
+                    <th>Input File (XLS, CSV)</th>
+                    <th>MediaCapsule Meta Data Fields</th>
+                    <th class="no-sort"></th>
+                    <th class="no-sort"></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Input File (XLS, CSV)</th>
+                    <th>MediaCapsule Meta Data Fields</th>
+                    <th class="no-sort"></th>
+                    <th class="no-sort"></th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr>
+                    <td>Title</td>
+                    <td>Title</td>
+                    <td>
+                      <a href="#">Edit</a>
+                    </td>
+                    <td>
+                      <a href="#">Delete</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Total Time</td>
+                    <td>Running Time</td>
+                    <td>
+                      <a href="#">Edit</a>
+                    </td>
+                    <td>
+                      <a href="#">Delete</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Company</td>
+                    <td>Company</td>
+                    <td>
+                      <a href="#">Edit</a>
+                    </td>
+                    <td>
+                      <a href="#">Delete</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr class="my-5">
+            <a class="btn btn-primary btn-lg mb-5" href="#">Confirm changes</a>
+          </ng-template>
+        </ngb-tab>                
+    </ngb-tabset>
+  </div>
+</div>

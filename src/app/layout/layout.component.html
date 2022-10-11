@@ -1,0 +1,15 @@
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+  <div *ngIf="globalNotice" class="globalNotice container-fluid bg-danger">
+    <table>
+      <tr>
+        <td><i class="fas fa-exclamation-triangle"></i></td>
+        <td>
+          {{globalNotice}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+</section>

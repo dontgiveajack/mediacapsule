@@ -1,0 +1,6 @@
+<p-tree [value]="treeData" selectionMode="single" [(selection)]="selectedPath"></p-tree>
+
+<div class="dialog-footer">
+  <p-button (click)="selectPath()" label="Move"></p-button>&nbsp;&nbsp;
+  <p-button (click)="cancelDialog()" label="Cancel"></p-button>
+</div>

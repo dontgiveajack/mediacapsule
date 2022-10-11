@@ -1,0 +1,248 @@
+<app-page-header [subTitle]="currentDomain.name"></app-page-header>
+<div class="container-fluid">
+  <div class="row pt-5 px-3">
+    <div class="col-12">
+      <h2>User Settings</h2>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-6">
+            <label>First Name</label> <input type="text" class="form-control"
+              [(ngModel)]="currentDomain.contactFirstName" />
+          </div>
+          <div class="col-md-6">
+            <label>Last Name</label> <input type="text" class="form-control"
+              [(ngModel)]="currentDomain.contactLastName" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-6">
+            <label>Company</label> <input type="text" class="form-control" [(ngModel)]="currentDomain.name" />
+          </div>
+          <div class="col-md-6">
+            <label>Subdomain</label> <input type="text" class="form-control" [(ngModel)]="currentDomain.subdomain" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address (for login and notifications)</label> <input type="text" class="form-control"
+          [(ngModel)]="currentDomain.primaryEmail" />
+      </div>
+      <hr class="my-5" />
+    </div>
+    <div class="col-12">
+      <h2>Storage</h2>
+      <p-panel *ngFor="let store of currentDomain.dataStores">
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-3">Storage Data Location</div>
+            <div class="col">
+              <p-dropdown *ngIf="store && store.location" [(ngModel)]="store.location.id" [options]="availableStores">
+              </p-dropdown>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-3">Immutable Data</div>
+            <div class="col">
+              <p-inputSwitch [(ngModel)]="store.immutable"></p-inputSwitch>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-3">Label</div>
+            <div class="col">
+              <input type="text" [(ngModel)]="store.label" class="form-control" style="max-width: 173px" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-3">Key</div>
+            <div class="col">
+              <input type="text" [(ngModel)]="store.key" class="form-control" style="max-width: 173px" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-3">Encryption</div>
+            <div class="col">
+              <p-dropdown *ngIf="store" [(ngModel)]="store.encryptionType" [options]="encryptionTypes">
+              </p-dropdown>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-3">Default Online Storage</div>
+            <div class="col">
+              <p-inputSwitch [(ngModel)]="store.isDefaultOnline"></p-inputSwitch>
+            </div>
+          </div>
+        </div>
+      </p-panel>
+      <div class="form-group">
+        <div class="form-row">
+          <a (click)="addStorage($event)" href="#">+ Add New</a>
+        </div>
+      </div>
+      <hr class="my-5" />
+    </div>
+    <div class="col-12">
+      <h2>Direct Upload via HTTPS</h2>
+      <div class="row">
+        <div class="col-md">
+          <h4>Videos</h4>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.videoSettings.createProxy"></p-inputSwitch>
+            <label class="toggle-label w-75">Create proxy of uploaded videos and store online</label>
+          </div>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.videoSettings.createThumbnail"></p-inputSwitch>
+            <label class="toggle-label w-75">Create thumbnail uploaded videos and store online</label>
+          </div>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.videoSettings.extractMetaData"></p-inputSwitch>
+            <label class="toggle-label w-75">Extract Meta Data for uploaded videos</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <h4>Images</h4>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.imageSettings.createPreview"></p-inputSwitch>
+            <label class="toggle-label w-75">Create preview and store online</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <h4>Other</h4>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.miscSettings.createPreview"></p-inputSwitch>
+            <label class="toggle-label w-75">Try to create preview and store online</label>
+          </div>
+        </div>
+      </div>
+      <hr class="my-5" />
+    </div>
+    <div class="col-12">
+      <h2>FileCatalyst</h2>
+      <div class="form-group">
+        <label>FileCatalyst Username</label>
+        <input type="text" class="form-control" [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystUser" />
+      </div>
+      <div class="form-group">
+        <label>FileCatalyst Password</label>
+        <input type="password" class="form-control"
+          [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystPassword" />
+      </div>
+      <div class="form-inline">
+        <div class="form-group">
+          <label class="mr-3">All uploaded files go to</label>
+          <p-dropdown [options]="fileCatalystArchiveMethods" [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystStorage">
+          </p-dropdown>
+        </div>
+      </div>
+      <hr class="my-5" />
+    </div>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md">
+          <h4>Videos</h4>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystVideoSettings.createProxy">
+            </p-inputSwitch>
+            <label class="toggle-label w-75">Create proxy of uploaded videos and store online</label>
+          </div>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystVideoSettings.createThumbnail">
+            </p-inputSwitch>
+            <label class="toggle-label w-75">Create thumbnail uploaded videos and store online</label>
+          </div>
+          <div class="form-row form-group">
+            <p-inputSwitch [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystVideoSettings.extractMetaData">
+            </p-inputSwitch>
+            <label class="toggle-label w-75">Extract Meta Data for uploaded videos</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <h4>Images</h4>
+          <div class="row">
+            <p-inputSwitch [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystImageSettings.createPreview">
+            </p-inputSwitch>
+            <label class="toggle-label w-75">Create preview and store online</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <h4>Other</h4>
+          <div class="row">
+            <p-inputSwitch [(ngModel)]="currentDomain.fileCatalystSettings.fileCatalystMiscSettings.createPreview">
+            </p-inputSwitch>
+            <label class="toggle-label w-75">Try to create preview and store online</label>
+          </div>
+        </div>
+      </div>
+      <hr class="my-5" />
+    </div>
+    <div class="col-12">
+      <h3>Storage Policies</h3>
+      <div class="form-group form-row">
+        <div class="col-md-3">
+          <label>All files are direct to archive</label>
+        </div>
+        <div class="col">
+          <p-inputSwitch [(ngModel)]="currentDomain.storagePolicy.directToArchive"></p-inputSwitch>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <div class="col-md-3">
+          <label>Move uploaded files to Archive automatically</label>
+        </div>
+        <div class="col">
+          <p-dropdown [(ngModel)]="currentDomain.storagePolicy.automaticArchive" [options]="archiveMethods">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="form-group form-row" [hidden]="currentDomain.storagePolicy.automaticArchive == 0">
+        <div class="col-md-3">
+          <label>Archive new files automatically every</label>&nbsp;
+        </div>
+        <div class="col">
+          <p-spinner [min]="0" [max]="120" [size]="2" [(ngModel)]="currentDomain.storagePolicy.archiveScheduleDays">
+          </p-spinner>
+          <label>&nbsp;days</label>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <div class="col-md-3">
+          <label>Create Thumbnails of Images before Archive</label>
+        </div>
+        <div class="col">
+          <p-inputSwitch [(ngModel)]="currentDomain.storagePolicy.createImageThumbnailsBeforeArchive"></p-inputSwitch>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <div class="col-md-3">
+          <label>Remove files from Online Storage</label>
+        </div>
+        <div class="col">
+          <p-dropdown [(ngModel)]="currentDomain.storagePolicy.removeFromStorage" [options]="archiveMethods">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="form-group form-row" [hidden]="currentDomain.storagePolicy.removeFromStorage == 0">
+        <div class="col-md-3">
+          <label>Delete online files if older than</label>&nbsp;
+        </div>
+        <div class="col">
+          <p-spinner [min]="0" [max]="120" [size]="2" [(ngModel)]="currentDomain.storagePolicy.removeFromStorageDays">
+          </p-spinner>
+          <label>&nbsp;days</label>
+        </div>
+      </div>
+    </div>
+  </div>

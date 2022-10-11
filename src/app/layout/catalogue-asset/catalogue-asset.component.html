@@ -1,0 +1,71 @@
+<app-page-header [(subTitle)]="asset.displayName" [breadcrumbItem]="breadcrumbItem"></app-page-header>
+<div class="container-fluid">
+  <div class="row panels">
+    <div class="col-lg-7 mb-3">
+      <div *ngIf="displayNoPreview()">
+        <img src="/assets/img/nopreview.jpg" alt="No Preview" style="max-width: 100%;" />
+      </div>
+      <app-video-mp4 [assetId]="asset.id" [fileType]="asset.fileType"></app-video-mp4>
+      <app-application-pdf [assetId]="asset.id" [fileType]="asset.fileType"></app-application-pdf>
+      <div class="embed-responsive" *ngIf="hasThumbnail">
+        <img *ngIf="thumbnail" [src]="thumbnail" />
+        <div *ngIf="!thumbnail">Loading...
+          <br />
+          <br />
+          <i class="fa-3x fas fa-circle-notch fa-spin"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 mb-3">
+      <div class="table-responsive">
+        <p-tabView>
+          <p-tabPanel header="File Information">
+            <table cellspacing="0" class="table table-bordered table-striped" id="dataTable" width="100%">
+              <tbody>
+                <tr>
+                  <th scope="row">Current Status</th>
+                  <td>
+                    <i class="fas fa-fw fa-circle text-primary"></i>
+                    Online
+                    <i class="fas fa-fw fa-circle text-muted"></i>
+                    Archived
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">FileID</th>
+                  <td>{{asset.id}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">File Size</th>
+                  <td>
+                    {{fileSize}}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Mime Type</th>
+                  <td>
+                    {{asset.fileType}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <app-asset-metadata-display *ngFor="let md of asset?.metadata || []" [metadata]="md">
+            </app-asset-metadata-display>
+          </p-tabPanel>
+          <p-tabPanel header="Chain of Custody">
+            <table cellspacing="0" class="table table-bordered table-striped" id="dataTable" width="100%">
+              <tbody>
+                <tr *ngFor="let audit of chainOfCustody || []">
+                  <td scope="row"> {{audit.activityDate | date : 'medium'}} </td>
+                  <td>{{audit.actionBy}}</td>
+                  <td>{{audit.activity}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </div>
+  </div>
+</div>

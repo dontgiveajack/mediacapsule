@@ -1,0 +1,116 @@
+#folder-actions {
+  display: none;
+}
+
+#folder-btn {
+  padding: 1rem 0;
+
+}
+.nostretch{
+    width:100%;
+    white-space:nowrap;  
+}
+.sort {
+  cursor: pointer;
+}
+#sort-options{
+  max-width:80px;
+}
+.ui-table table{
+  table-layout: auto;
+  overflow-y: scroll !important; 
+  width:100%;
+}
+#up-folder{
+  max-width:168px;
+}
+#upload-box {
+  width: 98%;
+  border: 3px dashed #dee2e6;
+  text-align: center;
+  padding: 3rem;
+
+  .fa-sign-in {
+    color: #dee2e6;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .desktop-hidden {
+    display: initial;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+  .ui-table-responsive .ui-table-tbody>tr>td{
+    display:block;
+    width:100%!important;
+    text-align: left!important;
+  }
+  .ui-table-responsive .ui-table-thead>tr>th{
+    display:none;
+  }    
+}
+
+@media screen and (min-width: 800px) {
+  .desktop-hidden {
+    display: none;
+  }
+
+  .mobile-hidden {
+    display: initial;
+  }
+
+  .ui-table-responsive .ui-table-tbody>tr>td{
+    display:table-cell;  
+  }  
+}
+
+
+body {
+  .ui-table {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    overflow-y: scroll; 
+    .ui-table-thead {
+      tr th {
+        border: 0;
+        background-color: white;
+        padding: 0.75rem .75rem .75rem 0;
+      }
+    }
+
+    .ui-table-tbody {
+      >tr {
+        border-top: 1px solid rgb(209, 212, 215);
+
+        >td {
+          padding: 0.68rem;
+          border: 0;
+          white-space: nowrap;
+        }
+      }
+
+      >tr:nth-child(odd) {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+
+      >tr:nth-child(even) {
+        background-color: rgba(255, 255, 255)
+      }
+    }
+
+    .ui-paginator-bottom {
+      font-family: "Roboto", sans-serif;
+      font-size: 1rem;
+      background: #424242;
+      color: #ededed;
+      padding: 0.75rem 0;
+
+      .ui-paginator-element {
+        color: #ededed;
+      }
+    }
+  }
+}

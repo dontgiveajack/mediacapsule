@@ -1,0 +1,12 @@
+<div>
+  {{message}}
+</div>
+<div class="form-group">
+  <input type="text" [(ngModel)]="response" class="form-control" />
+</div>
+<p-footer>
+  <div style="text-align: right;">
+    <p-button label="OK" (click)="ok();"></p-button>
+    <p-button label="Cancel" (click)="cancel();"></p-button>
+  </div>
+</p-footer>
